@@ -229,8 +229,8 @@ Read_config() {
 }
 View_Aria2() {
     Read_config
-    IPV4=$(cat /datasets/frpfrpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
-    aria2_port=$(cat /datasets/frpfrpc.ini | grep -E "remote_port" | head -1 | cut -d" " -f3)
+    IPV4=$(cat /datasets/frp/frpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
+    aria2_port=$(cat /datasets/frp/frpc.ini | grep -E "remote_port" | head -1 | cut -d" " -f3)
     echo -e "${LINE}\nAria2 简单配置信息：\n
 IPv4 地址\t: ${Green_font_prefix}http://${IPV4}:${aria2_port}/jsonrpc ${Font_color_suffix}
 RPC 密钥\t: ${Green_font_prefix}${aria2_passwd}${Font_color_suffix}"
@@ -276,10 +276,10 @@ Set_iptables() {
     chmod +x /etc/network/if-pre-up.d/iptables
 }
 VIEW_SSR(){
-    IPV4=$(cat /datasets/frpfrpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
+    IPV4=$(cat /datasets/frp/frpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
     echo -e "\nSSR鏈接信息:"
     echo -e "地址\t\t: ${Green_font_prefix}\"${IPV4}\"${Font_color_suffix}"
-    echo -e "端口\t\t: ${Green_font_prefix}\"$(cat /datasets/frpfrpc.ini | grep -E "remote_port" | tail -1 | cut -d" " -f3)\"${Font_color_suffix}"
+    echo -e "端口\t\t: ${Green_font_prefix}\"$(cat /datasets/frp/frpc.ini | grep -E "remote_port" | tail -1 | cut -d" " -f3)\"${Font_color_suffix}"
     echo -e "密碼\t\t: ${Green_font_prefix}\"${aria2_passwd}\"${Font_color_suffix}"
     echo -e "混淆\t\t: ${Green_font_prefix}\"${obfs}\"${Font_color_suffix}"
     echo -e "方法\t\t: ${Green_font_prefix}\"${method}\"${Font_color_suffix}"

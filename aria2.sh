@@ -229,8 +229,8 @@ Read_config() {
 }
 View_Aria2() {
     Read_config
-    IPV4=$(cat /work/frp/frpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
-    aria2_port=$(cat /work/frp/frpc.ini | grep -E "remote_port" | head -1 | cut -d" " -f3)
+    IPV4=$(cat /datasets/frpfrpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
+    aria2_port=$(cat /datasets/frpfrpc.ini | grep -E "remote_port" | head -1 | cut -d" " -f3)
     echo -e "${LINE}\nAria2 简单配置信息：\n
 IPv4 地址\t: ${Green_font_prefix}http://${IPV4}:${aria2_port}/jsonrpc ${Font_color_suffix}
 RPC 密钥\t: ${Green_font_prefix}${aria2_passwd}${Font_color_suffix}"
@@ -275,36 +275,11 @@ Set_iptables() {
     echo -e '#!/bin/bash\n/sbin/iptables-restore < /etc/iptables.up.rules' >/etc/network/if-pre-up.d/iptables
     chmod +x /etc/network/if-pre-up.d/iptables
 }
-PASSWD_FILE_INSERT(){
-echo "" >> /datasets/conf/passwd.conf
-
-cat > /bin/pd <<\EOF
-[[ -f /datasets/conf/passwd.conf ]] && [[ ! -n $(grep -oE "${1}" /datasets/conf/passwd.conf ) ]] && echo ${1} >> /datasets/conf/passwd.conf
-EOF
-
-cat > /bin/log <<\EOF
-lfile=/root/.aria2c/aria2.log
-if [[ $1 == "a" ]]
-then
-    echo > $lfile
-    sleep 1s
-    cat $lfile
-fi
-
-if [[ $1 == "r" ]]
-then
-    ps aux | grep "rclone" | grep -vE "grep" | grep -oE "rclone move [^:]+" | cut -d" " -f3
-fi
-EOF
-
-chmod +rwx /bin/pd
-chmod +rwx /bin/log
-}
 VIEW_SSR(){
-    IPV4=$(cat /work/frp/frpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
+    IPV4=$(cat /datasets/frpfrpc.ini | grep -E "server_addr" | head -1 | cut -d" " -f3)
     echo -e "\nSSR鏈接信息:"
     echo -e "地址\t\t: ${Green_font_prefix}\"${IPV4}\"${Font_color_suffix}"
-    echo -e "端口\t\t: ${Green_font_prefix}\"$(cat /work/frp/frpc.ini | grep -E "remote_port" | tail -1 | cut -d" " -f3)\"${Font_color_suffix}"
+    echo -e "端口\t\t: ${Green_font_prefix}\"$(cat /datasets/frpfrpc.ini | grep -E "remote_port" | tail -1 | cut -d" " -f3)\"${Font_color_suffix}"
     echo -e "密碼\t\t: ${Green_font_prefix}\"${aria2_passwd}\"${Font_color_suffix}"
     echo -e "混淆\t\t: ${Green_font_prefix}\"${obfs}\"${Font_color_suffix}"
     echo -e "方法\t\t: ${Green_font_prefix}\"${method}\"${Font_color_suffix}"

@@ -5,20 +5,20 @@ server_addr = freenat.bid
 server_port = 7000
 privilege_token = frp888
 
-[aria2tcp]
+[${RANDOM}]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 6800
 remote_port = ${1}
 #修改remote_port | 端口在：4000-50000 之间 | 建议改成难记的端口以免占用
 
-[btaria2]
+[${RANDOM}]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 51413
 remote_port = 51413
 
-[ssrtcp]
+[${RANDOM}]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 10086
